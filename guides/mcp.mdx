@@ -12,9 +12,9 @@ Celery Root ships with an optional MCP server that exposes read-only tools over 
 Set `mcp` in your config and provide an auth token:
 
 ```python
-from celery_cnc import CeleryCnCConfig, McpConfig
+from celery_root import CeleryRootConfig, McpConfig
 
-config = CeleryCnCConfig(
+config = CeleryRootConfig(
     mcp=McpConfig(
         host="127.0.0.1",
         port=9100,
@@ -26,18 +26,18 @@ config = CeleryCnCConfig(
 
 You can also set environment variables used by the web UI settings page:
 
-- `CELERY_CNC_MCP_ENABLED` (derived from config)
-- `CELERY_CNC_MCP_HOST`
-- `CELERY_CNC_MCP_PORT`
-- `CELERY_CNC_MCP_PATH`
-- `CELERY_CNC_MCP_AUTH_KEY`
+- `CELERY_ROOT_MCP_ENABLED` (derived from config)
+- `CELERY_ROOT_MCP_HOST`
+- `CELERY_ROOT_MCP_PORT`
+- `CELERY_ROOT_MCP_PATH`
+- `CELERY_ROOT_MCP_AUTH_KEY`
 
 ## Read-only database access
 
 For SQLite, the MCP server opens the database in read-only mode. For non-SQLite databases, provide a read-only URL:
 
 ```bash
-export CELERY_CNC_MCP_READONLY_DB_URL="postgresql://readonly:..."
+export CELERY_ROOT_MCP_READONLY_DB_URL="postgresql://readonly:..."
 ```
 
 ## Client snippets

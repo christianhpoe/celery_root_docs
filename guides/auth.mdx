@@ -8,7 +8,7 @@ description: "Protect the Celery Root UI with basic auth, OAuth, or a custom han
 Set basic auth users as `user:pass` pairs, comma-separated:
 
 ```bash
-export CELERY_CNC_BASIC_AUTH="admin:secret,ops:another"
+export CELERY_ROOT_BASIC_AUTH="admin:secret,ops:another"
 ```
 
 ## OAuth providers
@@ -23,33 +23,33 @@ Supported providers:
 Configure with:
 
 ```bash
-export CELERY_CNC_AUTH_PROVIDER="github"
-export CELERY_CNC_OAUTH2_KEY="<client_id>"
-export CELERY_CNC_OAUTH2_SECRET="<client_secret>"
-export CELERY_CNC_OAUTH2_REDIRECT_URI="http://127.0.0.1:8000/login"
+export CELERY_ROOT_AUTH_PROVIDER="github"
+export CELERY_ROOT_OAUTH2_KEY="<client_id>"
+export CELERY_ROOT_OAUTH2_SECRET="<client_secret>"
+export CELERY_ROOT_OAUTH2_REDIRECT_URI="http://127.0.0.1:8000/login"
 ```
 
 Optional fields:
 
-- `CELERY_CNC_OAUTH2_OKTA_BASE_URL`
-- `CELERY_CNC_GITLAB_AUTH_ALLOWED_GROUPS`
-- `CELERY_CNC_GITLAB_MIN_ACCESS_LEVEL`
-- `CELERY_CNC_GITLAB_OAUTH_DOMAIN`
+- `CELERY_ROOT_OAUTH2_OKTA_BASE_URL`
+- `CELERY_ROOT_GITLAB_AUTH_ALLOWED_GROUPS`
+- `CELERY_ROOT_GITLAB_MIN_ACCESS_LEVEL`
+- `CELERY_ROOT_GITLAB_OAUTH_DOMAIN`
 
 ## Allowlist emails
 
 Limit OAuth login to allowed emails:
 
 ```bash
-export CELERY_CNC_AUTH="allowed-emails:.*@example.com"
+export CELERY_ROOT_AUTH="allowed-emails:.*@example.com"
 ```
 
 ## Custom auth handler
 
-Set `CELERY_CNC_AUTH_PROVIDER` to a callable path to run custom logic:
+Set `CELERY_ROOT_AUTH_PROVIDER` to a callable path to run custom logic:
 
 ```bash
-export CELERY_CNC_AUTH_PROVIDER="your_module.auth:allow_request"
+export CELERY_ROOT_AUTH_PROVIDER="your_module.auth:allow_request"
 ```
 
 The handler should return `True` to allow, `False` to deny, or an `HttpResponse` to short-circuit.

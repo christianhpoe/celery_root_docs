@@ -10,9 +10,9 @@ Celery Root is configured with Pydantic models. Components are enabled when thei
 ```python
 from pathlib import Path
 
-from celery_cnc import (
+from celery_root import (
     BeatConfig,
-    CeleryCnCConfig,
+    CeleryRootConfig,
     DatabaseConfigSqlite,
     FrontendConfig,
     LoggingConfigFile,
@@ -20,9 +20,9 @@ from celery_cnc import (
     PrometheusConfig,
 )
 
-config = CeleryCnCConfig(
+config = CeleryRootConfig(
     logging=LoggingConfigFile(log_dir=Path("./logs")),
-    database=DatabaseConfigSqlite(db_path=Path("./celery_cnc.db")),
+    database=DatabaseConfigSqlite(db_path=Path("./celery_root.db")),
     beat=BeatConfig(schedule_path=Path("./celerybeat-schedule")),
     prometheus=PrometheusConfig(port=8001, prometheus_path="/metrics"),
     open_telemetry=OpenTelemetryConfig(endpoint="http://localhost:4317"),
@@ -35,13 +35,13 @@ config = CeleryCnCConfig(
 Celery Root needs import paths to your Celery apps:
 
 ```bash
-export CELERY_CNC_WORKERS="your_app.celery:app,another_app.celery:app"
+export CELERY_ROOT_WORKERS="your_app.celery:app,another_app.celery:app"
 ```
 
 Worker import paths are resolved in this order:
 
 - `config.worker_import_paths`
-- `CELERY_CNC_WORKERS`
+- `CELERY_ROOT_WORKERS`
 - Paths derived from the Celery apps you pass in
 
 ### Database settings (SQLite)
@@ -87,7 +87,7 @@ Worker import paths are resolved in this order:
 If you need settings applied before Django loads:
 
 ```python
-from celery_cnc.config import set_settings
+from celery_root.config import set_settings
 
 set_settings(config)
 ```

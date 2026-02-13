@@ -8,9 +8,9 @@ description: "Enable Prometheus and OpenTelemetry metrics for Celery Root."
 Enable the Prometheus exporter by providing `PrometheusConfig`.
 
 ```python
-from celery_cnc import CeleryCnCConfig, PrometheusConfig
+from celery_root import CeleryRootConfig, PrometheusConfig
 
-config = CeleryCnCConfig(
+config = CeleryRootConfig(
     prometheus=PrometheusConfig(port=8001, prometheus_path="/metrics"),
 )
 ```
@@ -28,9 +28,9 @@ If you need Flower-compatible naming, enable `flower_comatibility` in the config
 Enable OTLP export by providing `OpenTelemetryConfig`.
 
 ```python
-from celery_cnc import CeleryCnCConfig, OpenTelemetryConfig
+from celery_root import CeleryRootConfig, OpenTelemetryConfig
 
-config = CeleryCnCConfig(
+config = CeleryRootConfig(
     open_telemetry=OpenTelemetryConfig(endpoint="http://localhost:4317"),
 )
 ```

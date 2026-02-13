@@ -6,7 +6,7 @@ description: "Run Celery Root as a standalone service or a Celery subcommand."
 ## Standalone CLI
 
 ```bash
-celery-cnc -A proj.celery:app
+celery_root -A proj.celery:app
 ```
 
 Options:
@@ -21,13 +21,13 @@ You can also pass worker import paths as positional arguments.
 ## Celery subcommand
 
 ```bash
-celery -A proj.celery:app cnc
+celery -A proj.celery:app celery_root
 ```
 
 Options are the same as the standalone CLI.
 
 ## Environment variables
 
-- `CELERY_CNC_WORKERS`: Comma-separated worker import paths.
-- `CELERY_CNC_MCP_AUTH_KEY`: Required if MCP is enabled.
+- `CELERY_ROOT_WORKERS`: Comma-separated worker import paths.
+- `CELERY_ROOT_MCP_AUTH_KEY`: Required if MCP is enabled.
 - Auth-related variables are listed in the Authentication guide.
