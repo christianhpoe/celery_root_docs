@@ -1,97 +1,49 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Celery Root"
+description: "Celery Root is a modern replacement for the unmaintained Celery Flower. Monitor workers, inspect tasks, and manage queues from one control plane."
 ---
 
-## Setting up
+<Columns cols={2}>
+  <div>
 
-Get your documentation site up and running in minutes.
+Celery Root is a multi-worker monitoring, management, and visualization tool for Celery. It ships with a Django-based UI, a lightweight event listener/collector, and helper utilities for inspecting queues, tasks, workers, and beat schedules.
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+  </div>
+  <div>
+    <img src="/images/big_swag_logo.png" alt="Celery Root logo" />
+  </div>
+</Columns>
 
-## Make it yours
+## What you get
 
-Design a docs site that looks great and empowers your users.
+- Task list with filtering, sorting, and full detail views.
+- Task relation graph visualization (chains, groups, chords, maps).
+- Worker fleet overview and per-worker drill-down.
+- Broker queue inspection and purge actions.
+- Beat schedule overview and editor.
+- Pluggable storage (SQLite by default).
+- Optional Prometheus and OpenTelemetry metrics exporters.
+- Optional MCP server for safe read-only data access.
+
+## Start here
 
 <Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+  <Card title="Quickstart" icon="rocket" href="/guides/quickstart">
+    Run the demo stack and open the UI.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Configure" icon="sliders" href="/guides/configuration">
+    Enable or disable components and set database paths.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="UI tour" icon="grid" href="/guides/ui">
+    See where to manage tasks, workers, brokers, and beat.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="CLI" icon="terminal" href="/reference/cli">
+    Run Celery Root as a standalone service or a Celery subcommand.
   </Card>
 </Columns>
 
-## Create beautiful pages
+## Architecture at a glance
 
-Everything you need to create world-class documentation.
+The supervisor process launches a DB manager, event listeners per broker, optional metrics exporters, the web UI, and the MCP server. See the architecture overview for details.
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+<Card title="Architecture" icon="sitemap" href="/architecture/overview" />

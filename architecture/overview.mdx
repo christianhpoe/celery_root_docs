@@ -1,0 +1,49 @@
+---
+title: "Architecture"
+description: "How Celery Root processes events, stores data, and serves the UI."
+---
+
+## Process model
+
+The supervisor process starts and monitors these components:
+
+- **DB manager**: reads events from queues, writes to the SQLite store, and manages migrations.
+- **Event listener** (per broker): subscribes to Celery events and forwards task/worker events.
+- **Web UI**: Django-based UI server.
+- **Metrics exporters**: Prometheus and/or OpenTelemetry (optional).
+- **MCP server**: read-only data access for MCP clients (optional).
+
+```mermaid
+flowchart LR
+    Supervisor[ProcessManager]
+    EventListener[EventListener per broker]
+    DBManager[DBManager]
+    Web[Web UI]
+    Prom[Prometheus exporter]
+    OTel[OpenTelemetry exporter]
+    MCP[MCP server]
+    DB[(SQLite store)]
+
+    Supervisor --> EventListener
+    Supervisor --> DBManager
+    Supervisor --> Web
+    Supervisor --> Prom
+    Supervisor --> OTel
+    Supervisor --> MCP
+
+    EventListener -->|task/worker events| DBManager
+    DBManager --> DB
+    Web --> DB
+    MCP --> DB
+```
+
+## Event flow
+
+- Workers emit events to the broker.
+- Event listeners consume events and push them into a multiprocessing queue.
+- DB manager batches events and writes them to storage.
+- The UI reads from the same store to render dashboards, task lists, and graphs.
+
+## Storage
+
+SQLite is the default. The DB controller handles schema migrations and periodic cleanup based on the configured retention window.

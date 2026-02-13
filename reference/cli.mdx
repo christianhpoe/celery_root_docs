@@ -1,0 +1,33 @@
+---
+title: "CLI"
+description: "Run Celery Root as a standalone service or a Celery subcommand."
+---
+
+## Standalone CLI
+
+```bash
+celery-cnc -A proj.celery:app
+```
+
+Options:
+
+- `-A`, `--app`: Celery app import path. Can be repeated or comma-separated.
+- `--host`: Bind the web UI to this host.
+- `--port`: Bind the web UI to this port.
+- `--debug/--no-debug`: Toggle Django debug mode.
+
+You can also pass worker import paths as positional arguments.
+
+## Celery subcommand
+
+```bash
+celery -A proj.celery:app cnc
+```
+
+Options are the same as the standalone CLI.
+
+## Environment variables
+
+- `CELERY_CNC_WORKERS`: Comma-separated worker import paths.
+- `CELERY_CNC_MCP_AUTH_KEY`: Required if MCP is enabled.
+- Auth-related variables are listed in the Authentication guide.

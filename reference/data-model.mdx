@@ -1,0 +1,45 @@
+---
+title: "Data model"
+description: "Core records stored in the Celery Root database."
+---
+
+## Tasks
+
+Stored fields include:
+
+- `task_id`, `name`, `state`, `worker`
+- Timestamps: `received`, `started`, `finished`
+- `runtime`, `args`, `kwargs`, `result`, `traceback`, `stamps`
+- Relationships: `parent_id`, `root_id`, `group_id`, `chord_id`
+
+## Workers
+
+Stored fields include:
+
+- `hostname`, `status`
+- `last_heartbeat`
+- `pool_size`, `active_tasks`
+- `registered_tasks`, `queues`
+- `broker_url`
+
+## Schedules
+
+Stored fields include:
+
+- `schedule_id`, `name`, `task`, `schedule`
+- `args`, `kwargs`
+- `enabled`
+- `last_run_at`, `total_run_count`
+- `app`
+
+## Task relations
+
+Relations are recorded for graphing:
+
+- `root_id`, `parent_id`, `child_id`, `relation`
+
+## Task stats
+
+Aggregated statistics include:
+
+- `count`, `min_runtime`, `max_runtime`, `avg_runtime`, `p50`, `p95`, `p99`

@@ -1,0 +1,32 @@
+---
+title: "Installation"
+description: "Install Celery Root from source and build the UI assets."
+---
+
+## Install from source
+
+Celery Root is currently built and run from this repository.
+
+```bash
+make install
+```
+
+This runs:
+
+- `uv sync --all-extras --dev --frozen`
+- `uv run pre-commit install`
+- `npm --prefix frontend/graph-ui install`
+
+## Build the frontend assets
+
+```bash
+make build
+```
+
+## Run checks
+
+```bash
+uv run pre-commit run --all-files
+uv run mypy
+uv run pytest
+```

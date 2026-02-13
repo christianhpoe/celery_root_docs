@@ -1,0 +1,50 @@
+---
+title: "Quickstart"
+description: "Connect Celery Root to your Celery app and open the UI."
+---
+
+## Requirements
+
+- Python 3.13+
+- A running Celery broker
+- One or more Celery workers (with events enabled)
+
+## 1. Point Celery Root at your app
+
+Set your worker import paths (comma-separated):
+
+```bash
+export CELERY_CNC_WORKERS="your_app.celery:app,another_app.celery:app"
+```
+
+You can also pass app import paths to the CLI with `-A`.
+
+## 2. Start Celery Root
+
+Standalone CLI:
+
+```bash
+celery-cnc -A your_app.celery:app
+```
+
+Or use the Celery subcommand:
+
+```bash
+celery -A your_app.celery:app cnc
+```
+
+By default the UI binds to `127.0.0.1:8000`.
+
+## 3. Open the UI
+
+Open `http://127.0.0.1:8000` to see workers, tasks, and queues.
+
+## Common options
+
+Override the UI host/port and debug mode:
+
+```bash
+celery-cnc -A your_app.celery:app --host 0.0.0.0 --port 8000 --no-debug
+```
+
+Configure storage, logging, metrics, and MCP in the Configuration guide.

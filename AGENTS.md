@@ -1,33 +1,27 @@
-> **First-time setup**: Customize this file for your project. Prompt the user to customize this file for their project.
-> For Mintlify product knowledge (components, configuration, writing standards),
-> install the Mintlify skill: `npx skills add https://mintlify.com/docs`
-
-# Documentation project instructions
+# Documentation project instructions — Celery Root
 
 ## About this project
 
-- This is a documentation site built on [Mintlify](https://mintlify.com)
-- Pages are MDX files with YAML frontmatter
-- Configuration lives in `docs.json`
-- Run `mint dev` to preview locally
-- Run `mint broken-links` to check links
+- This documentation site is built on Mintlify.
+- Pages are MDX files with YAML frontmatter.
+- Configuration lives in `docs.json`.
+- Run `mint dev` to preview locally.
+- Run `mint broken-links` to check links.
 
 ## Terminology
 
-<!-- Add product-specific terms and preferred usage -->
-<!-- Example: Use "workspace" not "project", "member" not "user" -->
+- Prefer **Celery Root** as the product name.
+- Use “worker import path” for `module:attr` Celery app references.
 
 ## Style preferences
 
-<!-- Add any project-specific style rules below -->
-
-- Use active voice and second person ("you")
-- Keep sentences concise — one idea per sentence
-- Use sentence case for headings
-- Bold for UI elements: Click **Settings**
-- Code formatting for file names, commands, paths, and code references
+- Use active voice and second person.
+- Keep sentences concise—one idea per sentence.
+- Use sentence case for headings.
+- Bold UI elements: Click **Settings**.
+- Use inline code for commands, paths, and configuration keys.
 
 ## Content boundaries
 
-<!-- Define what should and shouldn't be documented -->
-<!-- Example: Don't document internal admin features -->
+- Document only features present in the codebase.
+- Avoid promising roadmap items unless explicitly marked as planned.

@@ -1,0 +1,38 @@
+---
+title: "Observability"
+description: "Enable Prometheus and OpenTelemetry metrics for Celery Root."
+---
+
+## Prometheus exporter
+
+Enable the Prometheus exporter by providing `PrometheusConfig`.
+
+```python
+from celery_cnc import CeleryCnCConfig, PrometheusConfig
+
+config = CeleryCnCConfig(
+    prometheus=PrometheusConfig(port=8001, prometheus_path="/metrics"),
+)
+```
+
+The exporter runs in a dedicated process and exposes metrics at:
+
+```
+http://<host>:<port><prometheus_path>
+```
+
+If you need Flower-compatible naming, enable `flower_comatibility` in the config.
+
+## OpenTelemetry exporter
+
+Enable OTLP export by providing `OpenTelemetryConfig`.
+
+```python
+from celery_cnc import CeleryCnCConfig, OpenTelemetryConfig
+
+config = CeleryCnCConfig(
+    open_telemetry=OpenTelemetryConfig(endpoint="http://localhost:4317"),
+)
+```
+
+The OpenTelemetry exporter uses OTLP over gRPC and runs in a dedicated process.

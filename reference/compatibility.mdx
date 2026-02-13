@@ -1,0 +1,30 @@
+---
+title: "Flower compatibility"
+description: "Current compatibility notes for Celery Flower users."
+---
+
+Celery Root is intended as a replacement for the unmaintained Celery Flower. It supports a subset of Flower configuration and behavior, with more parity planned.
+
+## Supported (today)
+
+- `auth`, `basic_auth` for HTTP auth.
+- `auth_provider` and OAuth fields.
+- Prometheus metric naming compatibility.
+
+## Partial support
+
+- `address`, `port`: mapped to `FrontendConfig.host` and `FrontendConfig.port` (defaults differ).
+- `enable_events`: events are enabled automatically and are not configurable.
+- `persistent`, `db`: always stores state in SQLite, with a configurable path.
+
+## Missing (planned)
+
+- `flowerconfig.py` / `--conf` loader.
+- `url_prefix` and `xheaders` support.
+- TLS configuration in the dev server.
+- Broker management API integration.
+- Task list customization (`tasks_columns`, `format_task`, `natural_time`).
+- State retention controls (`state_save_interval`, `max_workers`, `max_tasks`, `purge_offline_workers`).
+- Metrics bucket customization.
+
+If you rely on a missing feature, open an issue with your use case and target workflow.

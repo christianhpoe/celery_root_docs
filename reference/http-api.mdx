@@ -1,0 +1,64 @@
+---
+title: "HTTP API"
+description: "JSON endpoints exposed by the Celery Root web UI."
+---
+
+Base URL is the UI host, typically `http://127.0.0.1:8000`.
+
+## Health
+
+`GET /healthcheck`
+
+Returns broker/backend/worker health checks.
+
+## Components
+
+`GET /api/components/`
+
+Returns component status including PID and URL.
+
+## Tasks
+
+`GET /api/tasks/`
+
+Returns recent tasks.
+
+`GET /api/tasks/{task_id}/`
+
+Returns task details.
+
+`GET /api/tasks/{task_id}/relations/`
+
+Returns task relations for graphing.
+
+`GET /api/tasks/{task_id}/graph/`
+
+Returns graph payload for the task.
+
+`GET /api/tasks/{task_id}/graph/updates/`
+
+Returns updates for the graph payload.
+
+## Workers
+
+`GET /api/workers/`
+
+Returns worker list and summary fields.
+
+## Events
+
+`GET /api/events/latest/`
+
+Returns recent activity feed items.
+
+## Beat schedules
+
+`GET /api/beat/schedules/`
+
+Returns beat schedules when beat is enabled.
+
+## Metrics proxy
+
+`GET /metrics`
+
+Proxies Prometheus metrics when the exporter is enabled.

@@ -1,0 +1,61 @@
+---
+title: "Config reference"
+description: "Configuration models and fields for Celery Root."
+---
+
+## CeleryCnCConfig
+
+- `logging`: `LoggingConfigFile`
+- `database`: `DatabaseConfigSqlite`
+- `beat`: `BeatConfig | None`
+- `prometheus`: `PrometheusConfig | None`
+- `open_telemetry`: `OpenTelemetryConfig | None`
+- `frontend`: `FrontendConfig | None`
+- `mcp`: `McpConfig | None`
+- `worker_import_paths`: list of app import paths.
+- `event_queue_maxsize`: max event queue size.
+- `integration`: whether running as a Celery subcommand.
+
+## LoggingConfigFile
+
+- `log_dir`: directory path.
+- `log_rotation_hours`: rotation interval.
+- `log_level`: log level string.
+- `delete_on_boot`: delete logs on startup.
+
+## DatabaseConfigSqlite
+
+- `db_path`: SQLite file path.
+- `retention_days`: record retention window.
+- `batch_size`: max events per flush.
+- `flush_interval`: seconds between flushes.
+- `purge_db`: delete the database file on startup.
+
+## BeatConfig
+
+- `schedule_path`: beat schedule file path.
+- `delete_schedules_on_boot`: delete schedules on startup.
+
+## PrometheusConfig
+
+- `port`: exporter port.
+- `prometheus_path`: metrics path.
+- `flower_comatibility`: use Flower metric naming.
+
+## OpenTelemetryConfig
+
+- `endpoint`: OTLP collector endpoint.
+- `service_name`: service name label.
+
+## FrontendConfig
+
+- `host`, `port`, `debug`, `poll_interval`, `secret_key`.
+- `basic_auth`, `auth_provider`, `auth`.
+- OAuth fields: `oauth2_key`, `oauth2_secret`, `oauth2_redirect_uri`.
+- Okta/GitLab fields: `oauth2_okta_base_url`, `gitlab_allowed_groups`, `gitlab_min_access_level`, `gitlab_oauth_domain`.
+
+## McpConfig
+
+- `host`, `port`, `path`.
+- `auth_key`: required token.
+- `readonly_db_url`: optional read-only DB URL.
