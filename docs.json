@@ -15,6 +15,19 @@
     "light": "/logo/wordmark.svg",
     "dark": "/logo/wordmark.svg"
   },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "grok",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
+  },
   "navigation": {
     "tabs": [
       {
