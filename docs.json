@@ -47,7 +47,6 @@
               "guides/configuration",
               "guides/auth",
               "guides/mcp",
-              "guides/contextual-menu",
               "guides/observability"
             ]
           },
