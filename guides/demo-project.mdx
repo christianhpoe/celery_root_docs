@@ -26,21 +26,20 @@ This runs:
 From the repo root:
 
 ```bash
-cd demo
-docker compose up --build
+make demo_workers
 ```
 
-Once healthy, the seeder will dispatch demo tasks automatically.
+This starts the demo infrastructure and then brings up the three demo workers.
 
 ## Seed demo tasks
 
-Re-seed manually any time:
+Seed demo tasks manually any time:
 
 ```bash
-docker compose run --rm seeder
+make demo_tasks
 ```
 
-Seed demo tasks only (no server startup):
+If you specifically want the graph demo task set:
 
 ```bash
 make demo_graph_tasks

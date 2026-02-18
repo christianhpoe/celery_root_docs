@@ -7,8 +7,9 @@ description: "How Celery Root processes events, stores data, and serves the UI."
 
 The supervisor process starts and monitors these components:
 
-- **DB manager**: reads events from queues, writes to the SQLite store, and manages migrations.
-- **Event listener** (per broker): subscribes to Celery events and forwards task/worker events.
+- **DB manager**: hosts the RPC server, writes to the SQLite store, and manages migrations.
+- **Event listener** (per broker): subscribes to Celery events and forwards task/worker events to the DB manager. It also fans out events to metrics exporters.
+- **Reconciler**: polls brokers and workers to backfill task states and queue/worker snapshots.
 - **Web UI**: Django-based UI server.
 - **Metrics exporters**: Prometheus and/or OpenTelemetry (optional).
 - **MCP server**: read-only data access for MCP clients (optional).
@@ -16,7 +17,9 @@ The supervisor process starts and monitors these components:
 ```mermaid
 flowchart LR
     Supervisor[ProcessManager]
+    Broker[(Broker)]
     EventListener[EventListener per broker]
+    Reconciler[Reconciler]
     DBManager[DBManager]
     Web[Web UI]
     Prom[Prometheus exporter]
@@ -25,26 +28,33 @@ flowchart LR
     DB[(SQLite store)]
 
     Supervisor --> EventListener
+    Supervisor --> Reconciler
     Supervisor --> DBManager
     Supervisor --> Web
     Supervisor --> Prom
     Supervisor --> OTel
     Supervisor --> MCP
 
-    EventListener -->|task/worker events| DBManager
+    Broker --> EventListener
+    Reconciler --> Broker
+
+    EventListener -->|RPC: task/worker events| DBManager
+    Reconciler -->|RPC: snapshots/backfill| DBManager
     DBManager --> DB
-    Web --> DB
-    MCP --> DB
+    Web -->|RPC: read| DBManager
+    MCP -->|RPC: read| DBManager
+    EventListener -->|event fanout| Prom
+    EventListener -->|event fanout| OTel
 ```
 
 ## Event flow
 
 - Workers emit events to the broker.
-- Event listeners consume events and push them into a multiprocessing queue.
-- DB manager batches events and writes them to storage.
-- The UI reads from the same store to render dashboards, task lists, and graphs.
+- Event listeners consume events and send them to the DB manager via RPC. They also fan out events to metrics exporters.
+- Reconciler polls brokers and workers and writes snapshots and backfilled task updates through the DB manager.
+- The DB manager writes to storage.
+- The UI and MCP server read through the DB manager RPC API to render dashboards, task lists, and graphs.
 
 ## Storage
 
-SQLite is the default. The DB controller handles schema migrations and periodic cleanup based on the configured retention window.
-
+SQLite is the default. The DB manager is the only process that touches the database. It handles schema migrations and periodic cleanup based on the configured retention window, and exposes an RPC API for reads and writes.
