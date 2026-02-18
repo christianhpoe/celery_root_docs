@@ -1,0 +1,47 @@
+---
+title: "Demo project"
+description: "Run Celery Root from source with seeded test data."
+---
+
+## Overview
+
+The demo project is a local, source-based stack with seeded test data. Use it when you want to explore Celery Root without wiring up your own workers. This runs from source instead of the prebuilt wheel.
+
+## Install from source
+
+From the repo root:
+
+```bash
+make install
+```
+
+This runs:
+
+- `uv sync --all-extras --dev --frozen`
+- `uv run pre-commit install`
+- `npm --prefix frontend/graph-ui install`
+
+## Start the demo workers
+
+From the repo root:
+
+```bash
+cd demo
+docker compose up --build
+```
+
+Once healthy, the seeder will dispatch demo tasks automatically.
+
+## Seed demo tasks
+
+Re-seed manually any time:
+
+```bash
+docker compose run --rm seeder
+```
+
+Seed demo tasks only (no server startup):
+
+```bash
+make demo_graph_tasks
+```

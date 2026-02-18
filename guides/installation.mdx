@@ -1,33 +1,20 @@
 ---
 title: "Installation"
-description: "Install Celery Root from source and build the UI assets."
+description: "Install Celery Root from PyPI."
 ---
 
-## Install from source
+## Install from PyPI
 
-Celery Root is currently built and run from this repository.
-
-```bash
-make install
-```
-
-This runs:
-
-- `uv sync --all-extras --dev --frozen`
-- `uv run pre-commit install`
-- `npm --prefix frontend/graph-ui install`
-
-## Build the frontend assets
+Use the published package when you want a prebuilt wheel.
 
 ```bash
-make build
+pip install celery_root
 ```
-
-## Run checks
 
 ```bash
-uv run pre-commit run --all-files
-uv run mypy
-uv run pytest
+uv add celery_root
 ```
 
+Find the latest release on [PyPI](https://pypi.org/project/celery_root/).
+
+If you want to run Celery Root from source with seeded test data, use the [demo project guide](/guides/demo-project).

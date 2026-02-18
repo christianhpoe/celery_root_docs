@@ -9,6 +9,10 @@ description: "Connect Celery Root to your Celery app and open the UI."
 - A running Celery broker
 - One or more Celery workers (with events enabled)
 
+## Demo project
+
+The demo project is a local, source-based stack with seeded test data. Use it when you want to run Celery Root from source and explore the UI without wiring up your own workers. It is separate from the packaged install, which uses a prebuilt wheel. See the [demo project guide](/guides/demo-project) for setup steps.
+
 ## 1. Point Celery Root at your app
 
 Set your worker import paths (comma-separated):
@@ -48,4 +52,3 @@ celery_root -A your_app.celery:app --host 0.0.0.0 --port 8000 --no-debug
 ```
 
 Configure storage, logging, metrics, and MCP in the Configuration guide.
-
