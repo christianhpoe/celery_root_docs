@@ -1,0 +1,53 @@
+---
+title: "Beat"
+description: "Run Celery beat against the Celery Root database and edit schedules in the UI."
+---
+
+## Overview
+
+Celery Root ships a DB-backed beat scheduler. Beat reads and writes schedules in the same SQLite/DB used by the Root supervisor and UI. When enabled, the Root process manager starts one beat process per worker import path and sets the Celery app to use the bundled scheduler.
+
+## Enable beat via Celery Root
+
+Add `BeatConfig()` to your config and provide worker import paths:
+
+```python
+from celery_root import BeatConfig, CeleryRootConfig, DatabaseConfigSqlite, FrontendConfig
+
+config = CeleryRootConfig(
+    database=DatabaseConfigSqlite(),
+    frontend=FrontendConfig(),
+    beat=BeatConfig(),  # enables beat
+    worker_import_paths=["your_app.celery:app"],
+)
+```
+
+Start Celery Root (`celery_root -A your_app.celery:app` or `celery -A your_app.celery:app celery_root`). For each configured path, Root:
+
+- launches a dedicated beat process,
+- sets `app.conf.beat_scheduler = "celery_root.components.beat.db_scheduler:DatabaseScheduler"`,
+- applies `beat_db_refresh_seconds` when set.
+
+## Adjust refresh polling
+
+Beat reloads schedules on an interval. Override it with `db_refresh_seconds`:
+
+```python
+config = CeleryRootConfig(beat=BeatConfig(db_refresh_seconds=5.0))
+```
+
+You can also set `app.conf.beat_db_refresh_seconds` directly on your Celery app when running beat yourself.
+
+## Using the scheduler outside Root
+
+If you run Celery beat manually, point it to the Root scheduler so schedules stay in the Root DB:
+
+```python
+from celery import Celery
+
+app = Celery("myapp")
+app.conf.beat_scheduler = "celery_root.components.beat.db_scheduler:DatabaseScheduler"
+app.conf.beat_db_refresh_seconds = 5.0  # optional
+```
+
+Run one beat per Celery app/broker. The Root UI `/beat/` page will show and edit schedules stored in the DB.

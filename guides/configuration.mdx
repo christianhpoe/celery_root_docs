@@ -23,7 +23,7 @@ from celery_root import (
 config = CeleryRootConfig(
     logging=LoggingConfigFile(log_dir=Path("./logs")),
     database=DatabaseConfigSqlite(db_path=Path("./celery_root.db")),
-    beat=BeatConfig(schedule_path=Path("./celerybeat-schedule")),
+    beat=BeatConfig(),
     prometheus=PrometheusConfig(port=8001, prometheus_path="/metrics"),
     open_telemetry=OpenTelemetryConfig(endpoint="http://localhost:4317"),
     frontend=FrontendConfig(host="127.0.0.1", port=8000),
@@ -82,6 +82,10 @@ Worker import paths are resolved in this order:
 
 `McpConfig` enables the MCP server. See the MCP guide for details.
 
+### Beat settings
+
+`BeatConfig` enables the DB-backed beat scheduler. It reuses the Celery Root database and sets `beat_db_refresh_seconds` on your Celery apps when provided. One beat process runs per worker import path.
+
 ## Overriding settings early
 
 If you need settings applied before Django loads:
@@ -91,4 +95,3 @@ from celery_root.config import set_settings
 
 set_settings(config)
 ```
-

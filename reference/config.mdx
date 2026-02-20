@@ -33,8 +33,9 @@ description: "Configuration models and fields for Celery Root."
 
 ## BeatConfig
 
-- `schedule_path`: beat schedule file path.
-- `delete_schedules_on_boot`: delete schedules on startup.
+Enables the DB-backed beat scheduler when provided.
+
+- `db_refresh_seconds`: optional override for how often beat polls the Root DB for schedule changes.
 
 ## PrometheusConfig
 
@@ -59,4 +60,3 @@ description: "Configuration models and fields for Celery Root."
 - `host`, `port`, `path`.
 - `auth_key`: required token.
 - `readonly_db_url`: optional read-only DB URL.
-
